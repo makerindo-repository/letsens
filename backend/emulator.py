@@ -4,7 +4,7 @@ LetSens AIoT Smart Sanitation System
 ESP32 Hardware Emulator & MQTT Telemetry Publisher
 Universitas Komputer Indonesia (UNIKOM)
 
-Simulasi hardware ESP32 + MQTT ke Broker HiveMQ / Mosquitto & REST Ingestion API.
+Simulasi hardware ESP32 + MQTT ke Broker EMQX / Mosquitto & REST Ingestion API.
 Payload JSON yang dikirimkan 100% murni data telemetry hardware node ESP32.
 Relasi ke kode bilik toilet dikelola otomatis oleh backend database berdasarkan kode_perangkat.
 """
@@ -23,7 +23,7 @@ except ImportError:
     import paho.mqtt.client as mqtt
 
 # Configuration Defaults (bisa diubah sesuai preferensi hardware)
-BROKER_HOST = "broker.hivemq.com"
+BROKER_HOST = "broker.emqx.io"
 BROKER_PORT = 1883
 TOPIC = "letsens/toilet/sensordata"
 KODE_PERANGKAT = "ESP32-TK-01A"

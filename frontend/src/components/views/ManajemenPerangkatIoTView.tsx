@@ -1103,7 +1103,7 @@ export const ManajemenPerangkatIoTView: React.FC<ManajemenPerangkatIoTViewProps>
                       <span className="text-emerald-400 font-bold">Topic: letsens/toilet/sensordata</span>
                     </div>
                     <p className="text-emerald-400">
-                      &gt; [SUBSCRIBE OK] Broker HiveMQ Cloud | Topic: letsens/toilet/sensordata
+                      &gt; [SUBSCRIBE OK] Broker EMQX Public | Topic: letsens/toilet/sensordata
                     </p>
                     {detailDyn.hasTelemetry && detailDyn.latestLog ? (
                       <>

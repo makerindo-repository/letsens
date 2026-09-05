@@ -230,7 +230,7 @@ const getGlossaryData = (): GlossaryItem[] => [
     category: "SISTEM",
     menuIcon: Settings,
     features: [
-      { name: "Konfigurasi MQTT Broker & Test", desc: "Pengaturan host broker (HiveMQ/EMQX), port 1883, dan pengujian koneksi.", icon: Radio },
+      { name: "Konfigurasi MQTT Broker & Test", desc: "Pengaturan host broker (EMQX), port 1883, dan pengujian koneksi.", icon: Radio },
       { name: "Penyetelan Ambang Batas Gas Amonia", desc: "Penentuan batas PPM untuk trigger warning (blower) dan danger (alarm).", icon: Wind },
       { name: "Identitas Institusi & Hotline WA", desc: "Pengaturan nama aplikasi, lokasi kampus, dan nomor kontak darurat.", icon: Info }
     ]

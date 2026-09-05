@@ -28,7 +28,7 @@ Seluruh proses pengujian dilakukan secara empiris pada *codebase* aktual tanpa m
 
 1. **Functional Suitability** — Kesesuaian fungsional seluruh 76 endpoint REST API dan 21 halaman frontend terverifikasi 100%.
 2. **Performance Efficiency** — Waktu tanggap REST API <25ms, build time Vite production 6.35 detik.
-3. **Compatibility** — Interoperabilitas REST API HTTP dan protokol MQTT (HiveMQ Public Broker).
+3. **Compatibility** — Interoperabilitas REST API HTTP dan protokol MQTT (EMQX Public Broker).
 4. **Usability** — Desain UI/UX responsif berbasis TailwindCSS v4 & Vanilla CSS Design System dengan sidebar navigasi 5 grup menu.
 5. **Reliability** — Toleransi kesalahan dan penanganan pengecualian terpusat via `ApiResponseTrait`.
 6. **Security** — Enkripsi token Sanctum, proteksi SQL Injection (Eloquent ORM), dan XSS sanitization (React auto-escaping + DOMPurify transitive dependency).
@@ -58,7 +58,7 @@ graph TD
     end
 
     subgraph Hardware Telemetry Ingestion Layer
-        ESP32["ESP32 / Python Emulator"] -->|"MQTT Publish"| Broker["HiveMQ Public Broker"]
+        ESP32["ESP32 / Python Emulator"] -->|"MQTT Publish"| Broker["EMQX Public Broker"]
         Broker --> Daemon["Python Telemetry Listener"]
         Daemon -->|"POST /api/sensor-logs"| Gateway
     end
@@ -299,7 +299,7 @@ Untuk memastikan keandalan alur ingesti data tanpa tergantung pada hardware fisi
 
 ```python
 # Konfigurasi Koneksi Simulator ESP32 (MQTT Client)
-BROKER_HOST = "broker.hivemq.com"
+BROKER_HOST = "broker.emqx.io"
 BROKER_PORT = 1883
 TOPIC = "letsens/toilet/sensordata"
 KODE_PERANGKAT = "ESP32-TK-01A"
@@ -328,7 +328,7 @@ INTERVAL = 15  # detik (dikirimkan setiap 15 detik)
 ```mermaid
 sequenceDiagram
     participant ESP32 as ESP32 Hardware / Emulator
-    participant MQTT as MQTT Broker (HiveMQ)
+    participant MQTT as MQTT Broker (EMQX)
     participant Daemon as Telemetry Consumer Daemon
     participant API as Laravel Ingestion API
     participant DB as SQLite Database

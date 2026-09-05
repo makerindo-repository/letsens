@@ -445,7 +445,7 @@ except ImportError:
     import paho.mqtt.client as mqtt
 
 # Configuration
-BROKER_HOST = "${sysForm.mqttBrokerHost || 'broker.hivemq.com'}"
+BROKER_HOST = "${sysForm.mqttBrokerHost || 'broker.emqx.io'}"
 BROKER_PORT = ${sysForm.mqttPort || 1883}
 TOPIC = "${sysForm.mqttTopicRoot || emuTopic}"
 DEVICE_ID = "${emuDeviceId}"

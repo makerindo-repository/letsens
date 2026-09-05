@@ -18,7 +18,7 @@
 
 ## 🌟 Fitur Utama
 
-- 📡 **Telemetri Real-Time** — Ingesti data sensor dari node ESP32 via MQTT (HiveMQ/EMQX) dan HTTP REST API.
+- 📡 **Telemetri Real-Time** — Ingesti data sensor dari node ESP32 via MQTT (EMQX Public Broker) dan HTTP REST API.
 - 💨 **Otomasi Exhaust Blower** — Pemicuan relai kipas ventilasi otomatis jika amonia melebihi ambang batas (>10 PPM).
 - 🤖 **LetSens AI Smart Audit** — Evaluasi tingkat kebersihan & prediksi konsumsi bahan habis pakai menggunakan Google Gemini AI.
 - 🛡️ **Role-Based Access Control (RBAC)** — 4 level otorisasi: *Super Admin*, *Supervisor / Manajer*, *Teknisi IoT*, dan *Petugas Kebersihan*.
@@ -38,7 +38,7 @@ graph TD
     subgraph Docker Network: letsens-network
         Nginx["letsens-nginx<br/>Reverse Proxy :80"] -->|Proxy /| Frontend["letsens-frontend<br/>React 19 SPA"]
         Nginx -->|Proxy /api| Backend["letsens-backend<br/>PHP 8.2 FPM"]
-        Emulator["letsens-emulator<br/>Python 3 MQTT"] -->|MQTT Telemetry| HiveMQ["HiveMQ Public Broker"]
+        Emulator["letsens-emulator<br/>Python 3 MQTT"] -->|MQTT Telemetry| EMQX["EMQX Public Broker"]
         Backend -->|Query / ORM| DB[("SQLite Storage")]
         Backend -->|AI Prompt| Gemini["Google Gemini AI API"]
     end
