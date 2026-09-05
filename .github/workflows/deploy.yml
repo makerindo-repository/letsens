@@ -53,10 +53,11 @@ jobs:
       - name: Install Backend Dependencies
         run: cd backend && composer install --prefer-dist --no-interaction --no-progress
 
-      - name: Run PHP Syntax Verification
+      - name: Prepare Environment File & Key
         run: |
           cd backend
-          find app/ -name '*.php' -exec php -l {} \;
+          cp .env.example .env
+          php artisan key:generate
 
       - name: Run PHPUnit Test Suite
         run: |
