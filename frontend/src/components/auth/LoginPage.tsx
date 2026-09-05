@@ -23,9 +23,9 @@ interface LoginPageProps {
 
 export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
   const [email, setEmail] = useState<string>(
-    () => localStorage.getItem('letsens_remember_email') || 'admin@letsens.unikom.ac.id'
+    () => localStorage.getItem('letsens_remember_email') || ''
   );
-  const [password, setPassword] = useState<string>('password123');
+  const [password, setPassword] = useState<string>('');
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [rememberMe, setRememberMe] = useState<boolean>(
     () => !!localStorage.getItem('letsens_remember_email')
