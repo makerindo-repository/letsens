@@ -71,7 +71,7 @@ class ActivityLogSeeder extends Seeder
             ],
             [
                 'user' => 'Super Admin',
-                'action' => 'Menambahkan petugas sanitasi baru: Dewi Lestari (NIP: USR-UNIKOM-0504)',
+                'action' => 'Menambahkan petugas sanitasi baru: Dewi Lestari (NIP: USR-LETSENS-0504)',
                 'module' => 'Pengguna',
                 'status' => 'success',
                 'ip' => '127.0.0.1',

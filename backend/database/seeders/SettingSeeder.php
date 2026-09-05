@@ -29,8 +29,8 @@ class SettingSeeder extends Seeder
 
         $appSettings = [
             'app_name' => 'LetSens AIoT',
-            'institution' => 'Universitas Komputer Indonesia',
-            'campus_location' => 'Jl. Dipati Ukur No. 112-116, Bandung',
+            'institution' => 'LetSens AIoT Center',
+            'campus_location' => 'Gedung Utama, Lt. 1-4',
             'contact_hotline' => '(022) 2504119',
             'whatsapp_notification_number' => '6281234567890',
             'sound_alarm_enabled' => 'true',
