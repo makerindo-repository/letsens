@@ -57,7 +57,7 @@ class AuthController extends Controller
                     'email' => $user->email,
                     'role' => $user->role ?? 'Super Admin',
                     'profile_photo' => $user->profile_photo ?? null,
-                    'institution' => 'Universitas Komputer Indonesia',
+                    'institution' => 'LetSens AIoT Center',
                 ]
             ]
         ], 200);
@@ -78,7 +78,7 @@ class AuthController extends Controller
                 'email' => $user->email,
                 'role' => $user->role ?? 'Super Admin',
                 'profile_photo' => $user->profile_photo ?? null,
-                'institution' => 'Universitas Komputer Indonesia',
+                'institution' => 'LetSens AIoT Center',
             ]
         ], 200);
     }
@@ -118,7 +118,7 @@ class AuthController extends Controller
             'email' => $user->email,
             'role' => $user->role ?? 'Super Admin',
             'profile_photo' => $user->profile_photo,
-            'institution' => 'Universitas Komputer Indonesia',
+            'institution' => 'LetSens AIoT Center',
         ];
 
         try {

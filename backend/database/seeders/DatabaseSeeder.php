@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
         // 1. User Accounts & Staff Accounts (At least 1 User for EVERY Role in System)
         $accounts = [
             [
-                'email' => 'admin@letsens.unikom.ac.id',
+                'email' => 'admin@letsens.id',
                 'name' => 'Daffa Jaya Perkasa',
                 'nip' => '10126000',
                 'phone' => '081234567899',
@@ -39,7 +39,7 @@ class DatabaseSeeder extends Seeder
                 'completed_tasks_today' => 0,
             ],
             [
-                'email' => 'superadmin@letsens.unikom.ac.id',
+                'email' => 'superadmin@letsens.id',
                 'name' => 'Super Admin LetSens',
                 'nip' => '10126002',
                 'phone' => '081234567801',
@@ -51,7 +51,7 @@ class DatabaseSeeder extends Seeder
                 'completed_tasks_today' => 0,
             ],
             [
-                'email' => 'admin.fasilitas@letsens.unikom.ac.id',
+                'email' => 'admin.fasilitas@letsens.id',
                 'name' => 'Siti Rahmawati',
                 'nip' => '10126003',
                 'phone' => '081234567804',
@@ -63,7 +63,7 @@ class DatabaseSeeder extends Seeder
                 'completed_tasks_today' => 0,
             ],
             [
-                'email' => 'teknisi@letsens.unikom.ac.id',
+                'email' => 'teknisi@letsens.id',
                 'name' => 'Rudi Hermawan',
                 'nip' => '10126005',
                 'phone' => '6281234567803',
@@ -75,7 +75,7 @@ class DatabaseSeeder extends Seeder
                 'completed_tasks_today' => 0,
             ],
             [
-                'email' => 'petugas@letsens.unikom.ac.id',
+                'email' => 'petugas@letsens.id',
                 'name' => 'Asep Saepulloh',
                 'nip' => '10126001',
                 'phone' => '081234567890',
@@ -87,7 +87,7 @@ class DatabaseSeeder extends Seeder
                 'completed_tasks_today' => 0,
             ],
             [
-                'email' => 'supervisor@letsens.unikom.ac.id',
+                'email' => 'supervisor@letsens.id',
                 'name' => 'Pak Agus',
                 'nip' => '10126004',
                 'phone' => '6281234567802',

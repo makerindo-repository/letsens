@@ -307,7 +307,6 @@ export const ProfileView: React.FC<ProfileViewProps> = ({ user, onUpdateUser }) 
               </span>
             </div>
             <p className="text-blue-100 text-xs font-medium opacity-90">{user?.email}</p>
-            <p className="text-slate-300 text-[11px] font-mono">Universitas Komputer Indonesia</p>
           </div>
         </div>
       </motion.div>
