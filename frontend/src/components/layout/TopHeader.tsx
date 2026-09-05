@@ -326,20 +326,20 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
         <div className="relative">
           <div
             onClick={() => setShowRoleDropdown(!showRoleDropdown)}
-            className="flex items-center gap-3 p-1.5 pl-3.5 rounded-2xl bg-white border border-slate-200/80 shadow-xs hover:border-blue-300 transition-all cursor-pointer select-none"
+            className="flex items-center gap-2.5 p-1 pl-3.5 rounded-full bg-emerald-50/80 border border-emerald-300/70 shadow-xs hover:border-emerald-400 hover:bg-emerald-100/60 transition-all cursor-pointer select-none"
           >
-            <div className="flex flex-col text-right hidden sm:flex justify-center max-w-[160px]">
-              <span className="text-xs font-black text-slate-900 leading-tight truncate">
+            <div className="flex flex-col items-end text-right hidden sm:flex justify-center max-w-[160px]">
+              <span className="text-xs font-bold text-emerald-800 leading-tight truncate">
                 {userName}
               </span>
-              <span className="text-[10px] font-bold text-blue-600 leading-tight uppercase tracking-wider mt-0.5 truncate">
+              <span className="mt-0.5 inline-block px-2 py-0.5 rounded-full bg-emerald-100/80 text-emerald-700 font-black text-[9px] uppercase tracking-wider border border-emerald-200/80 leading-none">
                 {userRole}
               </span>
             </div>
 
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white font-black text-sm flex items-center justify-center shadow-md overflow-hidden shrink-0 border border-blue-400/20">
+            <div className="w-8 h-8 rounded-full bg-emerald-600 text-white font-extrabold text-xs flex items-center justify-center shadow-xs overflow-hidden shrink-0 border-2 border-white ring-1 ring-emerald-300">
               {user?.profile_photo ? (
-                <img src={user.profile_photo} alt={userName} className="w-full h-full object-cover rounded-xl" />
+                <img src={user.profile_photo} alt={userName} className="w-full h-full object-cover rounded-full" />
               ) : (
                 avatarLetter
               )}
