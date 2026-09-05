@@ -326,18 +326,18 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
         <div className="relative">
           <div
             onClick={() => setShowRoleDropdown(!showRoleDropdown)}
-            className="flex items-center gap-3 py-1 px-3.5 rounded-full bg-[#f0fdf4] border border-[#6ee7b7] shadow-xs hover:border-[#34d399] hover:bg-[#e6f9f0] transition-all cursor-pointer select-none"
+            className="flex items-center gap-2.5 p-1 pl-3.5 rounded-full bg-[#ecfdf5] border border-[#10b981] shadow-xs hover:border-[#059669] hover:bg-[#d1fae5]/70 transition-all cursor-pointer select-none"
           >
-            <div className="flex flex-col items-center sm:items-end text-right hidden sm:flex justify-center max-w-[160px]">
-              <span className="text-xs font-bold text-[#059669] leading-tight truncate tracking-tight">
+            <div className="flex flex-col items-end text-right hidden sm:flex justify-center max-w-[160px]">
+              <span className="text-xs font-extrabold text-[#047857] leading-tight truncate tracking-tight">
                 {userName}
               </span>
-              <span className="mt-0.5 inline-block px-2.5 py-0.5 rounded-full bg-[#d1fae5] text-[#047857] font-extrabold text-[9px] uppercase tracking-wider border border-[#a7f3d0] leading-none">
+              <span className="mt-0.5 inline-block px-2.5 py-0.5 rounded-full bg-[#d1fae5] text-[#047857] font-black text-[9px] uppercase tracking-wider border border-[#a7f3d0] leading-none">
                 {userRole}
               </span>
             </div>
 
-            <div className="w-8 h-8 rounded-full bg-[#059669] text-white font-black text-xs flex items-center justify-center shadow-xs overflow-hidden shrink-0 border-2 border-white ring-2 ring-[#a7f3d0]">
+            <div className="w-9 h-9 rounded-full bg-[#059669] text-white font-black text-xs flex items-center justify-center shadow-xs overflow-hidden shrink-0 border-2 border-white ring-2 ring-[#34d399]">
               {user?.profile_photo ? (
                 <img src={user.profile_photo} alt={userName} className="w-full h-full object-cover rounded-full" />
               ) : (
@@ -353,11 +353,11 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 10, scale: 0.95 }}
                 transition={{ duration: 0.18 }}
-                className="absolute right-0 mt-2 w-56 rounded-2xl bg-white border border-slate-200 shadow-2xl z-50 p-2 space-y-1"
+                className="absolute right-0 mt-2 w-56 rounded-2xl bg-white border border-emerald-100 shadow-2xl z-50 p-2 space-y-1"
               >
-                <div className="px-3 py-2 border-b border-slate-100">
-                  <p className="text-xs font-bold text-slate-900 truncate">{userName}</p>
-                  <p className="text-[10px] font-semibold text-slate-500 uppercase">{userRole}</p>
+                <div className="px-3 py-2 border-b border-emerald-50 bg-emerald-50/40 rounded-xl">
+                  <p className="text-xs font-extrabold text-slate-900 truncate">{userName}</p>
+                  <p className="text-[10px] font-black text-emerald-700 uppercase mt-0.5">{userRole}</p>
                 </div>
 
                 <button
@@ -365,9 +365,9 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
                     setShowRoleDropdown(false);
                     if (onSelectMenu) onSelectMenu('profile');
                   }}
-                  className="w-full px-3 py-2 rounded-xl text-xs font-bold text-slate-700 hover:bg-slate-100 flex items-center gap-2 cursor-pointer"
+                  className="w-full px-3 py-2 rounded-xl text-xs font-bold text-slate-700 hover:bg-emerald-50 hover:text-emerald-800 flex items-center gap-2 cursor-pointer transition-colors"
                 >
-                  <User size={14} className="text-blue-600" />
+                  <User size={14} className="text-emerald-600" />
                   <span>Profil Saya</span>
                 </button>
 
@@ -384,7 +384,7 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
                           onRoleChange(r);
                         }}
                         className={`w-full text-left px-3 py-1.5 rounded-lg text-xs font-bold transition-colors cursor-pointer ${
-                          userRole === r ? 'bg-blue-50 text-blue-700' : 'text-slate-600 hover:bg-slate-100'
+                          userRole === r ? 'bg-emerald-50 text-emerald-700 border border-emerald-200/60' : 'text-slate-600 hover:bg-slate-50'
                         }`}
                       >
                         {r}
