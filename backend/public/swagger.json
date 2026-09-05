@@ -1,0 +1,122 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "LetSens V1.0 AIoT Smart Toilet Management API",
+    "description": "Dokumentasi Resmi RESTful API LetSens V1.0 UNIKOM (React Frontend & Laravel Backend) oleh Daffa Jaya Perkasa untuk Pak Agus.",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Daffa Jaya Perkasa",
+      "email": "daffa@unikom.ac.id"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8000/api",
+      "description": "Local Development Server"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "paths": {
+    "/auth/login": {
+      "post": {
+        "summary": "Otentikasi Pengguna & Rilis Token Sanctum",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": { "type": "string", "example": "admin@letsens.unikom.ac.id" },
+                  "password": { "type": "string", "example": "password123" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Login berhasil dan token diterbitkan" }
+        }
+      }
+    },
+    "/toilets": {
+      "get": {
+        "summary": "Ambil Daftar Bilik Toilet",
+        "responses": { "200": { "description": "Array daftar bilik toilet" } }
+      },
+      "post": {
+        "summary": "Tambah Bilik Toilet Baru",
+        "responses": { "201": { "description": "Bilik toilet baru berhasil dibuat" } }
+      }
+    },
+    "/toilets/{id}": {
+      "get": { "summary": "Detail Bilik Toilet" },
+      "put": { "summary": "Update Data Bilik Toilet" },
+      "delete": { "summary": "Hapus Bilik Toilet" }
+    },
+    "/sensor-logs/latest": {
+      "get": {
+        "summary": "Telemetri Sensor Real-Time Terbaru",
+        "responses": { "200": { "description": "Log sensor terbaru" } }
+      }
+    },
+    "/sensor-logs/history": {
+      "get": {
+        "summary": "Histori Log Telemetri Sensor",
+        "responses": { "200": { "description": "Pagination histori sensor_logs" } }
+      }
+    },
+    "/iot-devices": {
+      "get": { "summary": "Daftar Perangkat Node IoT" },
+      "post": { "summary": "Registrasi Node IoT Baru" }
+    },
+    "/iot-devices/{id}/reboot": {
+      "post": { "summary": "Remote Command Reboot Node IoT" }
+    },
+    "/iot-devices/{id}/calibrate": {
+      "post": { "summary": "Remote Command Kalibrasi Zero-Point MQ-137" }
+    },
+    "/iot-devices/{id}/ota-update": {
+      "post": { "summary": "Remote Command OTA Firmware Flash v2.5.0" }
+    },
+    "/staff": {
+      "get": { "summary": "Daftar Petugas Kebersihan" },
+      "post": { "summary": "Registrasi Petugas Baru" }
+    },
+    "/dispatch/whatsapp": {
+      "post": { "summary": "Trigger Panggilan Tugas Sanitasi via WhatsApp" }
+    },
+    "/supplies": {
+      "get": { "summary": "Daftar Inventaris Perlengkapan" },
+      "post": { "summary": "Tambah Barang Inventaris Baru" }
+    },
+    "/supplies/{id}/stock": {
+      "patch": { "summary": "Penyesuaian Stok Perlengkapan" }
+    },
+    "/schedules": {
+      "get": { "summary": "Daftar Jadwal Pemeliharaan Sanitasi" },
+      "post": { "summary": "Buat Jadwal Pemeliharaan Baru" }
+    },
+    "/damages": {
+      "get": { "summary": "Daftar Rekap Tiket Kerusakan" },
+      "post": { "summary": "Buat Laporan Kerusakan Baru" }
+    },
+    "/damages/{id}/dispatch": {
+      "post": { "summary": "Eskalasi Laporan Kerusakan ke Tiket Perbaikan" }
+    },
+    "/repairs": {
+      "get": { "summary": "Daftar Rekap Tiket Perbaikan Teknisi" }
+    },
+    "/letsens-ai/analyze": {
+      "post": { "summary": "Proxy Analytics LetSens AI (Gemini 1.5 Flash + Rule Engine)" }
+    }
+  }
+}

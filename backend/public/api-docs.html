@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>LetSens V1.0 API Documentation - Swagger UI</title>
+  <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui.css">
+  <style>
+    body { margin: 0; padding: 0; background: #0f172a; font-family: sans-serif; }
+    #header-bar {
+      background: linear-gradient(to right, #1e1b4b, #1e293b);
+      color: white;
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #334155;
+    }
+    #header-bar h1 { margin: 0; font-size: 18px; font-weight: 700; }
+    #header-bar p { margin: 4px 0 0 0; font-size: 12px; color: #94a3b8; }
+    .swagger-ui .topbar { display: none; }
+    .swagger-ui { background: #ffffff; padding: 20px; border-radius: 12px; margin: 20px auto; max-width: 1200px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
+  </style>
+</head>
+<body>
+  <div id="header-bar">
+    <div>
+      <h1>🤖 LetSens V1.0 AIoT Smart Toilet Management API</h1>
+      <p>Pengembang: <strong>Daffa Jaya Perkasa</strong> • Ditujukan Kepada: <strong>Pak Agus</strong> (UNIKOM)</p>
+    </div>
+    <div style="font-size: 12px; background: #2563eb; padding: 6px 12px; border-radius: 8px; font-weight: bold;">
+      OpenAPI 3.0 Verified
+    </div>
+  </div>
+  <div id="swagger-ui"></div>
+  <script src="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui-bundle.js"></script>
+  <script>
+    window.onload = function() {
+      SwaggerUIBundle({
+        url: "/swagger.json",
+        dom_id: '#swagger-ui',
+        deepLinking: true,
+        presets: [
+          SwaggerUIBundle.presets.apis,
+          SwaggerUIBundle.SwaggerUIStandalonePreset
+        ],
+      });
+    };
+  </script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+{
+  "name": "LetSens V1.0 - Sistem Manajemen Toilet Cerdas",
+  "description": "Sistem Informasi Manajemen Toilet Cerdas berbasis AIoT (LetSens) Universitas Komputer Indonesia (UNIKOM) dengan pemantauan sensor real-time, manajemen toilet, petugas, perlengkapan, pemeliharaan, rekap kerusakan, rekap perbaikan, Letsens AI, laporan, pengaturan, dan telemetri logs.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
