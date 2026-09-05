@@ -94,10 +94,49 @@ export const PengaturanView: React.FC<PengaturanViewProps> = ({
   const [emuTissue, setEmuTissue] = useState(70);
 
   const [emuStreaming, setEmuStreaming] = useState<boolean>(() => {
-    return localStorage.getItem('letsens_emu_streaming') === 'true';
+    return localStorage.getItem('letsens_emu_streaming') !== 'false';
   });
   const [emuSending, setEmuSending] = useState(false);
   const [emuLogMsg, setEmuLogMsg] = useState<string | null>(null);
+
+  // Auto-stream telemetry interval effect to keep UI active and moving live
+  useEffect(() => {
+    if (!emuStreaming) return;
+
+    const intervalMs = (emuIntervalSec || 15) * 1000;
+    const timer = setInterval(() => {
+      // Dynamic micro-jitter for live sensor feel
+      setEmuAmonia((prev) => parseFloat(Math.max(0.5, Math.min(30.0, prev + (Math.random() * 0.6 - 0.3))).toFixed(2)));
+      setEmuSuhu((prev) => parseFloat(Math.max(22.0, Math.min(35.0, prev + (Math.random() * 0.4 - 0.2))).toFixed(1)));
+      setEmuRh((prev) => parseFloat(Math.max(45.0, Math.min(90.0, prev + (Math.random() * 1.0 - 0.5))).toFixed(1)));
+      setEmuCahaya((prev) => Math.max(50, Math.min(800, prev + Math.floor(Math.random() * 20 - 10))));
+
+      const activeTopic = sysForm.mqttTopicRoot || emuTopic;
+      const payload = {
+        kode_perangkat: emuDeviceId,
+        amonia: emuAmonia,
+        suhu: emuSuhu,
+        rh: emuRh,
+        PIR: emuPir,
+        cahaya: emuCahaya,
+        RSSI: emuRssi,
+        Baterai: emuBaterai,
+        soap_level_percent: emuSoap,
+        tissue_level_percent: emuTissue,
+      };
+
+      const nowStr = new Date().toLocaleTimeString('id-ID');
+      window.dispatchEvent(new CustomEvent('letsens_telemetry_published', { detail: payload }));
+      setEmuLogMsg(
+        `[${nowStr}] 🟢 Auto-Stream Telemetri Live -> Topik '${activeTopic}' (Node: ${emuDeviceId}, Amonia: ${emuAmonia} PPM)`
+      );
+
+      // Async post to REST API for dashboard sync
+      telemetryApi.injectTelemetry(payload as any).catch(() => {});
+    }, intervalMs);
+
+    return () => clearInterval(timer);
+  }, [emuStreaming, emuIntervalSec, emuDeviceId, emuTopic, emuAmonia, emuSuhu, emuRh, emuPir, emuCahaya, emuRssi, emuBaterai, emuSoap, emuTissue, sysForm.mqttTopicRoot]);
   const [copiedPython, setCopiedPython] = useState(false);
 
   const showToast = (msg: string) => {
@@ -1342,37 +1381,48 @@ if __name__ == "__main__":
                   />
                 </div>
 
-                {/* Level Sabun & Tisu */}
+                {/* Level Sabun Cair */}
                 <div className="space-y-2 bg-white p-4 rounded-2xl border border-slate-200/80 shadow-2xs hover:border-teal-300 transition-all">
-                  <div className="flex justify-between items-center text-[11px]">
-                    <span className="text-slate-700 font-extrabold flex items-center gap-1">
-                      <Package size={13} className="text-teal-600" />
-                      Stok Konsumabel:
+                  <div className="flex justify-between items-center text-xs">
+                    <span className="text-slate-700 font-extrabold flex items-center gap-1.5">
+                      <Droplet size={14} className="text-teal-500" />
+                      Stok Sabun Cair (Soap):
                     </span>
-                    <span className="font-mono text-[10px]">
-                      S: <strong className="text-teal-700">{emuSoap}%</strong> | T: <strong className="text-indigo-700">{emuTissue}%</strong>
+                    <span className="font-mono px-2.5 py-0.5 bg-teal-100 text-teal-900 font-black rounded-lg text-[11px] shadow-2xs">
+                      {emuSoap} %
                     </span>
                   </div>
-                  <div className="grid grid-cols-2 gap-2 pt-1">
-                    <input
-                      type="range"
-                      min="0"
-                      max="100"
-                      step="5"
-                      value={emuSoap}
-                      onChange={(e) => setEmuSoap(parseInt(e.target.value))}
-                      className="w-full accent-teal-500 cursor-pointer h-1.5 bg-slate-100 rounded-lg"
-                    />
-                    <input
-                      type="range"
-                      min="0"
-                      max="100"
-                      step="5"
-                      value={emuTissue}
-                      onChange={(e) => setEmuTissue(parseInt(e.target.value))}
-                      className="w-full accent-indigo-500 cursor-pointer h-1.5 bg-slate-100 rounded-lg"
-                    />
+                  <input
+                    type="range"
+                    min="0"
+                    max="100"
+                    step="5"
+                    value={emuSoap}
+                    onChange={(e) => setEmuSoap(parseInt(e.target.value))}
+                    className="w-full accent-teal-500 cursor-pointer h-1.5 bg-slate-100 rounded-lg"
+                  />
+                </div>
+
+                {/* Level Tisu Toilet */}
+                <div className="space-y-2 bg-white p-4 rounded-2xl border border-slate-200/80 shadow-2xs hover:border-indigo-300 transition-all">
+                  <div className="flex justify-between items-center text-xs">
+                    <span className="text-slate-700 font-extrabold flex items-center gap-1.5">
+                      <Package size={14} className="text-indigo-500" />
+                      Stok Tisu Toilet (Tissue):
+                    </span>
+                    <span className="font-mono px-2.5 py-0.5 bg-indigo-100 text-indigo-900 font-black rounded-lg text-[11px] shadow-2xs">
+                      {emuTissue} %
+                    </span>
                   </div>
+                  <input
+                    type="range"
+                    min="0"
+                    max="100"
+                    step="5"
+                    value={emuTissue}
+                    onChange={(e) => setEmuTissue(parseInt(e.target.value))}
+                    className="w-full accent-indigo-500 cursor-pointer h-1.5 bg-slate-100 rounded-lg"
+                  />
                 </div>
               </div>
 
