@@ -183,10 +183,10 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
 
               <div className="bg-slate-950/80 p-3.5 rounded-2xl border border-slate-800/80 space-y-1.5">
                 <div className="flex items-center gap-1.5 text-[11px] font-bold text-amber-400">
-                  <Zap size={14} /> Relai Exhaust Blower
+                  <Eye size={14} /> Presensi & Cahaya (PIR)
                 </div>
                 <p className="text-xs font-medium text-slate-300 leading-snug">
-                  Kontrol ventilasi otomatis saat melampaui batas ambang
+                  Deteksi okupansi pengunjung & pemantauan intensitas cahaya bilik
                 </p>
               </div>
             </div>
