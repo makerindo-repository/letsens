@@ -326,18 +326,18 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
         <div className="relative">
           <div
             onClick={() => setShowRoleDropdown(!showRoleDropdown)}
-            className="flex items-center gap-2.5 p-1 pl-3.5 rounded-full bg-emerald-50/80 border border-emerald-300/70 shadow-xs hover:border-emerald-400 hover:bg-emerald-100/60 transition-all cursor-pointer select-none"
+            className="flex items-center gap-3 py-1 px-3.5 rounded-full bg-[#f0fdf4] border border-[#6ee7b7] shadow-xs hover:border-[#34d399] hover:bg-[#e6f9f0] transition-all cursor-pointer select-none"
           >
-            <div className="flex flex-col items-end text-right hidden sm:flex justify-center max-w-[160px]">
-              <span className="text-xs font-bold text-emerald-800 leading-tight truncate">
+            <div className="flex flex-col items-center sm:items-end text-right hidden sm:flex justify-center max-w-[160px]">
+              <span className="text-xs font-bold text-[#059669] leading-tight truncate tracking-tight">
                 {userName}
               </span>
-              <span className="mt-0.5 inline-block px-2 py-0.5 rounded-full bg-emerald-100/80 text-emerald-700 font-black text-[9px] uppercase tracking-wider border border-emerald-200/80 leading-none">
+              <span className="mt-0.5 inline-block px-2.5 py-0.5 rounded-full bg-[#d1fae5] text-[#047857] font-extrabold text-[9px] uppercase tracking-wider border border-[#a7f3d0] leading-none">
                 {userRole}
               </span>
             </div>
 
-            <div className="w-8 h-8 rounded-full bg-emerald-600 text-white font-extrabold text-xs flex items-center justify-center shadow-xs overflow-hidden shrink-0 border-2 border-white ring-1 ring-emerald-300">
+            <div className="w-8 h-8 rounded-full bg-[#059669] text-white font-black text-xs flex items-center justify-center shadow-xs overflow-hidden shrink-0 border-2 border-white ring-2 ring-[#a7f3d0]">
               {user?.profile_photo ? (
                 <img src={user.profile_photo} alt={userName} className="w-full h-full object-cover rounded-full" />
               ) : (
