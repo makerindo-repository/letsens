@@ -167,8 +167,9 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
     : 'Kondisi Normal';
   const amoniaReading = `Amonia ${amoniaVal.toFixed(2)} PPM`;
 
-  const userName = user?.name || 'Super User';
-  const userRole = user?.role || 'ADMIN';
+  const rawUserName = user?.name || 'Super User';
+  const userName = rawUserName.replace(/\s*\([^)]*\)\s*$/, '').trim();
+  const userRole = user?.role || 'SUPER ADMIN';
   const avatarLetter = user?.avatarInitial || userName.charAt(0).toUpperCase() || 'S';
 
   return (
@@ -325,18 +326,18 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
         <div className="relative">
           <div
             onClick={() => setShowRoleDropdown(!showRoleDropdown)}
-            className="flex items-center gap-2.5 p-1.5 pl-3 rounded-2xl bg-white border border-slate-200/80 shadow-xs hover:border-blue-300 transition-all cursor-pointer"
+            className="flex items-center gap-3 p-1.5 pl-3.5 rounded-2xl bg-white border border-slate-200/80 shadow-xs hover:border-blue-300 transition-all cursor-pointer select-none"
           >
-            <div className="flex flex-col text-right hidden sm:block">
-              <span className="text-xs font-black text-slate-900 leading-tight">
+            <div className="flex flex-col text-right hidden sm:flex justify-center max-w-[160px]">
+              <span className="text-xs font-black text-slate-900 leading-tight truncate">
                 {userName}
               </span>
-              <span className="text-[10px] font-bold text-blue-600 leading-tight uppercase tracking-wider mt-0.5">
+              <span className="text-[10px] font-bold text-blue-600 leading-tight uppercase tracking-wider mt-0.5 truncate">
                 {userRole}
               </span>
             </div>
 
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white font-black text-sm flex items-center justify-center shadow-md overflow-hidden shrink-0">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white font-black text-sm flex items-center justify-center shadow-md overflow-hidden shrink-0 border border-blue-400/20">
               {user?.profile_photo ? (
                 <img src={user.profile_photo} alt={userName} className="w-full h-full object-cover rounded-xl" />
               ) : (

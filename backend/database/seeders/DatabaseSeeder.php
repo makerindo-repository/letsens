@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
         $accounts = [
             [
                 'email' => 'admin@letsens.unikom.ac.id',
-                'name' => 'Daffa Jaya Perkasa (Super Admin)',
+                'name' => 'Daffa Jaya Perkasa',
                 'nip' => '10126000',
                 'phone' => '081234567899',
                 'role' => 'Super Admin',
@@ -52,7 +52,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'email' => 'admin.fasilitas@letsens.unikom.ac.id',
-                'name' => 'Siti Rahmawati (Admin Fasilitas)',
+                'name' => 'Siti Rahmawati',
                 'nip' => '10126003',
                 'phone' => '081234567804',
                 'role' => 'Admin Fasilitas',
@@ -64,7 +64,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'email' => 'teknisi@letsens.unikom.ac.id',
-                'name' => 'Rudi Hermawan (Teknisi IoT)',
+                'name' => 'Rudi Hermawan',
                 'nip' => '10126005',
                 'phone' => '6281234567803',
                 'role' => 'Teknisi IoT',
@@ -76,7 +76,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'email' => 'petugas@letsens.unikom.ac.id',
-                'name' => 'Asep Saepulloh (Petugas Kebersihan)',
+                'name' => 'Asep Saepulloh',
                 'nip' => '10126001',
                 'phone' => '081234567890',
                 'role' => 'Petugas Kebersihan',
@@ -88,7 +88,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'email' => 'supervisor@letsens.unikom.ac.id',
-                'name' => 'Pak Agus (Supervisor Sarpras)',
+                'name' => 'Pak Agus',
                 'nip' => '10126004',
                 'phone' => '6281234567802',
                 'role' => 'Supervisor / Manajer',
