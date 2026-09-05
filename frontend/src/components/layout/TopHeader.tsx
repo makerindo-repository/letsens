@@ -355,13 +355,8 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 8, scale: 0.96 }}
                 transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
-                className="absolute right-0 mt-2.5 w-52 rounded-2xl bg-white border border-slate-200/90 shadow-xl z-50 p-1.5 space-y-1 backdrop-blur-xl"
+                className="absolute right-0 mt-2.5 w-48 rounded-2xl bg-white border border-slate-200/90 shadow-xl z-50 p-1.5 space-y-1 backdrop-blur-xl"
               >
-                <div className="px-3 py-2.5 border-b border-slate-100 bg-slate-50/60 rounded-xl">
-                  <p className="text-xs font-black text-slate-900 truncate">{userName}</p>
-                  <p className="text-[10px] font-extrabold text-blue-600 uppercase mt-0.5 tracking-wider">{userRole}</p>
-                </div>
-
                 <button
                   onClick={() => {
                     setShowRoleDropdown(false);
