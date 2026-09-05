@@ -7,7 +7,6 @@
 [![Docker Ready](https://img.shields.io/badge/Docker-Compose-2496ed.svg?logo=docker)](https://www.docker.com)
 [![License](https://img.shields.io/badge/License-Proprietary-green.svg)](#-lisensi)
 
-> **Universitas Komputer Indonesia (UNIKOM)**
 > Platform Sensing & Telemetri Sanitasi Toilet Pintar Berbasis IoT, AI (Google Gemini), dan Analytics Real-Time.
 
 ---
@@ -261,4 +260,4 @@ Semua endpoint terlindungi oleh middleware **Sanctum Auth** (`auth:sanctum`) dan
 
 ## 📄 Lisensi
 
-© 2026 **Universitas Komputer Indonesia** — Division IoT & AI Sanitation Engineering. Proprietary Software.
+© 2026 **LetSens AIoT** — Division IoT & AI Sanitation Engineering. Proprietary Software.
