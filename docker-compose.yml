@@ -52,6 +52,28 @@ services:
     networks:
       - letsens-network
 
+  mqtt-subscriber:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: letsens-mqtt-subscriber
+    command: php artisan mqtt:subscribe
+    restart: unless-stopped
+    volumes:
+      - ./backend/storage:/var/www/backend/storage
+      - ./backend/database:/var/www/backend/database
+    environment:
+      - APP_ENV=production
+      - APP_DEBUG=false
+      - APP_KEY=base64:v1ZkPzJ5q9x0L8sR7tM4N1wY6eU3iO9pL2aK5bV8cX0=
+      - DB_CONNECTION=sqlite
+      - DB_DATABASE=/var/www/backend/database/database.sqlite
+    depends_on:
+      - backend
+    networks:
+      - letsens-network
+
 networks:
   letsens-network:
     driver: bridge
+
