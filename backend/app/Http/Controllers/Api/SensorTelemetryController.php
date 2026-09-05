@@ -107,8 +107,8 @@ class SensorTelemetryController extends Controller
         $lux = (float) ($request->input('cahaya') ?? $request->input('light_lux') ?? $request->input('lux') ?? 0.0);
         $rssi = (int) ($request->input('RSSI') ?? $request->input('rssi') ?? 0);
         $battery = (int) ($request->input('Baterai') ?? $request->input('battery_percent') ?? 0);
-        $soap = (float) ($request->input('soap_level_percent') ?? 0.0);
-        $tissue = (float) ($request->input('tissue_level_percent') ?? 0.0);
+        $soap = (float) ($request->input('soap_level_percent') ?? $toilet?->soap_level_percent ?? 100.0);
+        $tissue = (float) ($request->input('tissue_level_percent') ?? $toilet?->tissue_level_percent ?? 100.0);
         $waterFlow = (float) ($request->input('water_flow_lpm') ?? 0.0);
         $status = $request->input('status') ?? 'NORMAL';
 
@@ -135,8 +135,6 @@ class SensorTelemetryController extends Controller
             'humidity_percent' => $hum,
             'lux' => $lux,
             'occupied' => $occupied,
-            'soap_level_percent' => $soap,
-            'tissue_level_percent' => $tissue,
             'water_flow_lpm' => $waterFlow,
             'battery_percent' => $battery,
             'last_telemetry_at' => $now,
@@ -155,8 +153,8 @@ class SensorTelemetryController extends Controller
             'pir_presence' => $pir,
             'occupied' => $occupied,
             'light_lux' => $lux,
-            'soap_level_percent' => $soap,
-            'tissue_level_percent' => $tissue,
+            'soap_level_percent' => $toilet->soap_level_percent ?? 100.0,
+            'tissue_level_percent' => $toilet->tissue_level_percent ?? 100.0,
             'water_flow_lpm' => $waterFlow,
             'status' => $status,
             'status_condition' => $ammoniaPpm >= 25 ? 'Bahaya' : ($ammoniaPpm >= 10 ? 'Waspada' : 'Normal'),

@@ -412,8 +412,6 @@ export default function App() {
           cahaya: randCahaya,
           RSSI: randRssi,
           Baterai: randBat,
-          soap_level_percent: randSoap,
-          tissue_level_percent: randTissue,
         };
 
         await telemetryApi.injectTelemetry(payload as any);

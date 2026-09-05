@@ -51,9 +51,7 @@ def generate_telemetry():
         "PIR": random.choice([True, False]),
         "cahaya": round(random.uniform(200.0, 550.0), 1),
         "RSSI": random.randint(-75, -50),
-        "Baterai": random.randint(85, 100),
-        "soap_level_percent": random.randint(40, 95),
-        "tissue_level_percent": random.randint(35, 90)
+        "Baterai": random.randint(85, 100)
     }
 
 def on_connect(client, userdata, flags, rc):

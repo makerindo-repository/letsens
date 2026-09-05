@@ -80,8 +80,6 @@ class SubscribeMqtt extends Command
                 $lux = (float) ($data['cahaya'] ?? $data['light_lux'] ?? $data['lux'] ?? 0.0);
                 $rssi = isset($data['RSSI']) ? (int) $data['RSSI'] : ($data['rssi'] ?? -65);
                 $battery = isset($data['Baterai']) ? (int) $data['Baterai'] : ($data['battery_percent'] ?? 96);
-                $soap = $data['soap_level_percent'] ?? 80.0;
-                $tissue = $data['tissue_level_percent'] ?? 85.0;
                 $waterFlow = $data['water_flow_lpm'] ?? 0.0;
                 $status = $data['status'] ?? 'NORMAL';
 
@@ -105,8 +103,6 @@ class SubscribeMqtt extends Command
                         'humidity_percent' => $hum ?? $toilet->humidity_percent,
                         'lux' => $lux,
                         'occupied' => $occupied,
-                        'soap_level_percent' => $soap,
-                        'tissue_level_percent' => $tissue,
                         'water_flow_lpm' => $waterFlow,
                         'last_telemetry_at' => $timestamp,
                         'status' => 'Online',
@@ -124,8 +120,8 @@ class SubscribeMqtt extends Command
                         'pir_presence' => $pir,
                         'occupied' => $occupied,
                         'light_lux' => $lux,
-                        'soap_level_percent' => $soap,
-                        'tissue_level_percent' => $tissue,
+                        'soap_level_percent' => $toilet->soap_level_percent ?? 100.0,
+                        'tissue_level_percent' => $toilet->tissue_level_percent ?? 100.0,
                         'water_flow_lpm' => $waterFlow,
                         'status' => $status,
                         'status_condition' => $ammoniaPpm >= 25 ? 'Bahaya' : ($ammoniaPpm >= 10 ? 'Waspada' : 'Normal'),

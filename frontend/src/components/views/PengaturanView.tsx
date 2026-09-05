@@ -90,8 +90,6 @@ export const PengaturanView: React.FC<PengaturanViewProps> = ({
   const [emuCahaya, setEmuCahaya] = useState(380);
   const [emuRssi, setEmuRssi] = useState(-52);
   const [emuBaterai, setEmuBaterai] = useState(95);
-  const [emuSoap, setEmuSoap] = useState(85);
-  const [emuTissue, setEmuTissue] = useState(70);
 
   const [emuStreaming, setEmuStreaming] = useState<boolean>(() => {
     return localStorage.getItem('letsens_emu_streaming') !== 'false';
@@ -121,8 +119,6 @@ export const PengaturanView: React.FC<PengaturanViewProps> = ({
         cahaya: emuCahaya,
         RSSI: emuRssi,
         Baterai: emuBaterai,
-        soap_level_percent: emuSoap,
-        tissue_level_percent: emuTissue,
       };
 
       const nowStr = new Date().toLocaleTimeString('id-ID');
@@ -136,7 +132,7 @@ export const PengaturanView: React.FC<PengaturanViewProps> = ({
     }, intervalMs);
 
     return () => clearInterval(timer);
-  }, [emuStreaming, emuIntervalSec, emuDeviceId, emuTopic, emuAmonia, emuSuhu, emuRh, emuPir, emuCahaya, emuRssi, emuBaterai, emuSoap, emuTissue, sysForm.mqttTopicRoot]);
+  }, [emuStreaming, emuIntervalSec, emuDeviceId, emuTopic, emuAmonia, emuSuhu, emuRh, emuPir, emuCahaya, emuRssi, emuBaterai, sysForm.mqttTopicRoot]);
   const [copiedPython, setCopiedPython] = useState(false);
 
   const showToast = (msg: string) => {
@@ -308,8 +304,6 @@ export const PengaturanView: React.FC<PengaturanViewProps> = ({
       setEmuCahaya(380);
       setEmuRssi(-55);
       setEmuBaterai(98);
-      setEmuSoap(85);
-      setEmuTissue(75);
       showToast('Skenario "Kondisi Normal / Clean" diterapkan!');
       return;
     }
@@ -322,8 +316,6 @@ export const PengaturanView: React.FC<PengaturanViewProps> = ({
       setEmuCahaya(460);
       setEmuRssi(-64);
       setEmuBaterai(91);
-      setEmuSoap(40);
-      setEmuTissue(30);
       showToast('Skenario "Pengunjung Ramai" diterapkan!');
       return;
     }
@@ -336,8 +328,6 @@ export const PengaturanView: React.FC<PengaturanViewProps> = ({
       setEmuCahaya(480);
       setEmuRssi(-72);
       setEmuBaterai(82);
-      setEmuSoap(12);
-      setEmuTissue(8);
       showToast('Skenario "Peringatan Bau Kritis (Amonia High)" diterapkan!');
       return;
     }
@@ -350,8 +340,6 @@ export const PengaturanView: React.FC<PengaturanViewProps> = ({
       setEmuCahaya(25);
       setEmuRssi(-52);
       setEmuBaterai(88);
-      setEmuSoap(85);
-      setEmuTissue(75);
       showToast('Skenario "Malam Hari / Standby" diterapkan!');
       return;
     }
@@ -367,8 +355,6 @@ export const PengaturanView: React.FC<PengaturanViewProps> = ({
     const randCahaya = isOccupied ? Math.floor(Math.random() * 150 + 350) : Math.floor(Math.random() * 250 + 50); // Lux
     const randRssi = Math.floor(Math.random() * 35 - 85); // -85 to -50 dBm
     const randBat = Math.floor(Math.random() * 30 + 70); // 70-100%
-    const randSoap = Math.floor(Math.random() * 80 + 15);
-    const randTissue = Math.floor(Math.random() * 80 + 10);
 
     setEmuAmonia(randAmonia);
     setEmuSuhu(randSuhu);
@@ -377,8 +363,6 @@ export const PengaturanView: React.FC<PengaturanViewProps> = ({
     setEmuCahaya(randCahaya);
     setEmuRssi(randRssi);
     setEmuBaterai(randBat);
-    setEmuSoap(randSoap);
-    setEmuTissue(randTissue);
 
     showToast('🎲 Data sensor berhasil diacak secara realistis sesuai dinamika fisik!');
   };
@@ -397,8 +381,6 @@ export const PengaturanView: React.FC<PengaturanViewProps> = ({
       setEmuCahaya(data.cahaya);
       setEmuRssi(data.RSSI);
       setEmuBaterai(data.Baterai);
-      setEmuSoap(data.soap_level_percent);
-      setEmuTissue(data.tissue_level_percent);
 
       const activeTopic = sysForm.mqttTopicRoot || emuTopic;
       const nowStr = new Date().toLocaleTimeString('id-ID');
@@ -425,8 +407,6 @@ export const PengaturanView: React.FC<PengaturanViewProps> = ({
       cahaya: emuCahaya,
       RSSI: emuRssi,
       Baterai: emuBaterai,
-      soap_level_percent: emuSoap,
-      tissue_level_percent: emuTissue,
     };
 
     const nowStr = new Date().toLocaleTimeString('id-ID');
@@ -456,8 +436,6 @@ export const PengaturanView: React.FC<PengaturanViewProps> = ({
       cahaya: emuCahaya,
       RSSI: emuRssi,
       Baterai: emuBaterai,
-      soap_level_percent: emuSoap,
-      tissue_level_percent: emuTissue,
     },
     null,
     2
@@ -499,9 +477,7 @@ def generate_telemetry():
         "PIR": random.choice([True, False]),
         "cahaya": round(random.uniform(200.0, 550.0), 1),
         "RSSI": ${emuRssi},
-        "Baterai": ${emuBaterai},
-        "soap_level_percent": ${emuSoap},
-        "tissue_level_percent": ${emuTissue}
+        "Baterai": ${emuBaterai}
     }
 
 def on_connect(client, userdata, flags, rc):
@@ -1053,10 +1029,6 @@ if __name__ == "__main__":
                     <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-indigo-50 text-indigo-700 border border-indigo-200/80">
                       Super Admin Only
                     </span>
-                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center gap-1">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                      Server Container Daemon Aktif
-                    </span>
                   </div>
                   <p className="text-xs font-semibold text-slate-500 mt-0.5">
                     Simulasi payload JSON telemetri sensor 100% identik dengan hardware ESP32 ke broker MQTT & REST Ingestion API
@@ -1378,50 +1350,6 @@ if __name__ == "__main__":
                     value={emuBaterai}
                     onChange={(e) => setEmuBaterai(parseInt(e.target.value))}
                     className="w-full accent-emerald-500 cursor-pointer h-1.5 bg-slate-100 rounded-lg"
-                  />
-                </div>
-
-                {/* Level Sabun Cair */}
-                <div className="space-y-2 bg-white p-4 rounded-2xl border border-slate-200/80 shadow-2xs hover:border-teal-300 transition-all">
-                  <div className="flex justify-between items-center text-xs">
-                    <span className="text-slate-700 font-extrabold flex items-center gap-1.5">
-                      <Droplet size={14} className="text-teal-500" />
-                      Stok Sabun Cair (Soap):
-                    </span>
-                    <span className="font-mono px-2.5 py-0.5 bg-teal-100 text-teal-900 font-black rounded-lg text-[11px] shadow-2xs">
-                      {emuSoap} %
-                    </span>
-                  </div>
-                  <input
-                    type="range"
-                    min="0"
-                    max="100"
-                    step="5"
-                    value={emuSoap}
-                    onChange={(e) => setEmuSoap(parseInt(e.target.value))}
-                    className="w-full accent-teal-500 cursor-pointer h-1.5 bg-slate-100 rounded-lg"
-                  />
-                </div>
-
-                {/* Level Tisu Toilet */}
-                <div className="space-y-2 bg-white p-4 rounded-2xl border border-slate-200/80 shadow-2xs hover:border-indigo-300 transition-all">
-                  <div className="flex justify-between items-center text-xs">
-                    <span className="text-slate-700 font-extrabold flex items-center gap-1.5">
-                      <Package size={14} className="text-indigo-500" />
-                      Stok Tisu Toilet (Tissue):
-                    </span>
-                    <span className="font-mono px-2.5 py-0.5 bg-indigo-100 text-indigo-900 font-black rounded-lg text-[11px] shadow-2xs">
-                      {emuTissue} %
-                    </span>
-                  </div>
-                  <input
-                    type="range"
-                    min="0"
-                    max="100"
-                    step="5"
-                    value={emuTissue}
-                    onChange={(e) => setEmuTissue(parseInt(e.target.value))}
-                    className="w-full accent-indigo-500 cursor-pointer h-1.5 bg-slate-100 rounded-lg"
                   />
                 </div>
               </div>
