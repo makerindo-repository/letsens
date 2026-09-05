@@ -1,0 +1,10 @@
+.git
+.gitignore
+.env
+node_modules
+vendor
+dist
+build
+.DS_Store
+storage/logs/*
+!storage/logs/.gitignore

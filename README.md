@@ -4,6 +4,7 @@
 [![Laravel Version](https://img.shields.io/badge/Laravel-11.x-red.svg)](https://laravel.com)
 [![React Version](https://img.shields.io/badge/React-19.x-61dafb.svg)](https://react.dev)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178c6.svg)](https://www.typescriptlang.org)
+[![Docker Ready](https://img.shields.io/badge/Docker-Compose-2496ed.svg?logo=docker)](https://www.docker.com)
 [![License](https://img.shields.io/badge/License-Proprietary-green.svg)](#-lisensi)
 
 > **Universitas Komputer Indonesia (UNIKOM)**  
@@ -25,62 +26,64 @@
 - 🛡️ **Role-Based Access Control (RBAC)**: Otorisasi hak akses 4 tingkatan (*Super Admin*, *Supervisor*, *Teknisi IoT*, dan *Petugas Kebersihan*).
 - 📲 **WhatsApp Quick Dispatch**: Fitur penugasan otomatis ke WhatsApp petugas kebersihan saat terjadi kondisi kotor/darurat.
 - 📊 **Laporan & Eksportasi**: Generasi laporan rekapitulasi audit dan inventaris dalam format **PDF** dan **Excel (.xlsx)**.
+- 🐳 **Full Dockerized Architecture**: Siap dijalankan dalam 1 perintah menggunakan Docker Compose.
 
 ---
 
-## 🏗️ Arsitektur & Teknologi
+## 🐳 Deployment Cepat via Docker (Recommended)
+
+Sistem sudah dilengkapi dengan konfigurasi **Docker & Docker Compose** multi-container:
+
+```bash
+# 1. Clone repository
+git clone https://github.com/username/letsens.git
+cd letsens
+
+# 2. Jalankan seluruh layanan (Backend, Frontend, Nginx Gateway, & Emulator Hardware)
+docker compose up -d --build
+```
+
+Setelah kontainer berjalan:
+- 🌐 **Web Dashboard (Frontend)**: `http://localhost`
+- 🔌 **Backend REST API**: `http://localhost/api`
+- 📟 **Hardware Simulator**: Otomatis aktif mengirimkan data telemetri di background.
+
+### Manajemen Container Docker:
+```bash
+# Cek status kontainer
+docker compose ps
+
+# Lihat log layanan real-time
+docker compose logs -f
+
+# Menghentikan kontainer
+docker compose down
+```
+
+---
+
+## 🏗️ Arsitektur & Kontainer Docker
 
 ```mermaid
-graph LR
-    A[ESP32 Sensors Node] -->|MQTT / REST| B[Laravel 11 Backend API]
-    B -->|Sanctum / ORM| C[(SQLite / MySQL Database)]
-    B -->|Audit Prompt| D[Google Gemini AI Engine]
-    E[React 19 SPA Frontend] -->|REST API| B
+graph TD
+    subgraph Docker Network: letsens-network
+        Nginx[letsens-nginx Gateway :80] -->|Proxy /| Frontend[letsens-frontend React SPA]
+        Nginx -->|Proxy /api| Backend[letsens-backend PHP 8.2 FPM]
+        Emulator[letsens-emulator Python 3] -->|MQTT Telemetry| HiveMQ[HiveMQ Public Broker]
+        Backend -->|Query / ORM| DB[(SQLite / MySQL Storage)]
+        Backend -->|Audit Prompt| Gemini[Google Gemini AI API]
+    end
 ```
 
-### **Backend**
-- **Framework**: Laravel 11 (PHP 8.2+)
-- **Pattern**: Clean Service Layer & Domain Isolation (`App\Services\*`, `ApiResponseTrait`)
-- **Auth**: Laravel Sanctum (Encrypted Bearer Tokens)
-
-### **Frontend**
-- **Framework**: React 19 + Vite 6 + TypeScript 5
-- **Styling**: TailwindCSS v4 + Custom Tokens
-- **Components**: Framer Motion, Lucide React, Dynamic Island Toasts
-
-### **IoT & Hardware**
-- **Node**: Mikrokontroler ESP32 Dual-Core
-- **Sensors**: MQ-137 ($NH_3$), SHT40 (Suhu/Kelembapan), PIR Occupancy, ADS1115 ADC
-- **Actuators**: Relai Optokopler 5V Exhaust Fan
+### **Spesifikasi Kontainer**:
+- `letsens-backend`: PHP 8.2 FPM Alpine (Laravel 11 REST API Engine)
+- `letsens-frontend`: Nginx Alpine serving React 19 SPA static build
+- `letsens-nginx`: Main Reverse Proxy & API Gateway (Port 80)
+- `letsens-emulator`: Python 3 MQTT Publisher (Simulasi telemetri sensor ESP32)
 
 ---
 
-## 📁 Struktur Repository
-
-```text
-letsens/
-├── backend/                        # Laravel 11 REST API Project
-│   ├── app/
-│   │   ├── Services/               # Core Business Logic Services
-│   │   ├── Http/Controllers/Api/   # API Controllers & Form Requests
-│   │   ├── Traits/                 # Standardized API Response Formatters
-│   │   └── Models/                 # Database Schemas & Models
-│   ├── database/                   # Migrations & Seeders
-│   ├── routes/api.php              # API Endpoints Router
-│   └── emulator.py                 # Telemetry Hardware Simulator
-├── frontend/                       # React 19 Frontend SPA Project
-│   ├── src/
-│   │   ├── api/                    # Axios API Client & Services
-│   │   ├── components/             # UI Components, Layout, Views
-│   │   ├── utils/                  # RBAC Helpers & Utilities
-│   │   └── pages/                  # Page Exports
-│   └── public/                     # Static Assets
-└── README.md                       # Main Repository Documentation
-```
-
----
-
-## ⚡ Cara Menjalankan (Quick Start)
+## ⚡ Cara Menjalankan Manual Tanpa Docker (Local Development)
 
 ### 1. Backend (Laravel API)
 
@@ -116,11 +119,31 @@ npm run dev
 
 ### 3. Hardware Simulator (Optional)
 
-Untuk menyimulasikan pengiriman data sensor tanpa perangkat fisik ESP32:
-
 ```bash
 cd backend
 python3 emulator.py
+```
+
+---
+
+## 📁 Struktur Repository
+
+```text
+letsens/
+├── backend/                        # Laravel 11 REST API Project
+│   ├── app/                        # Services, Controllers, Models
+│   ├── database/                   # Migrations & Seeders
+│   ├── Dockerfile                  # PHP 8.2 FPM Container Definition
+│   ├── emulator.Dockerfile         # Hardware Simulator Container
+│   └── emulator.py                 # Telemetry Hardware Simulator
+├── frontend/                       # React 19 Frontend SPA Project
+│   ├── src/                        # API Services, Components, Views
+│   ├── Dockerfile                  # Multi-stage Node/Nginx Container Definition
+│   └── nginx.conf                  # SPA Nginx Router Config
+├── docker/
+│   └── nginx/default.conf          # Main Reverse Proxy Nginx Gateway
+├── docker-compose.yml              # Master Docker Orchestration File
+└── README.md                       # Main Repository Documentation
 ```
 
 ---
