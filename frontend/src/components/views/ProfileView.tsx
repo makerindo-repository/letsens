@@ -163,16 +163,18 @@ export const ProfileView: React.FC<ProfileViewProps> = ({ user, onUpdateUser }) 
         }
 
         const res = await authApi.updateProfile(payload);
-        if (res.success && res.data?.user) {
+        const updatedUserObj = res.data?.user || (res as any).user || (res as any).data;
+
+        if (res.success && updatedUserObj) {
           const updated = {
             ...user!,
-            name: res.data.user.name,
-            profile_photo: res.data.user.profile_photo ?? null,
+            name: updatedUserObj.name,
+            profile_photo: updatedUserObj.profile_photo ?? null,
           };
           localStorage.setItem('letsens_user', JSON.stringify(updated));
           onUpdateUser(updated);
           setProfilePhoto(null);
-          setPhotoPreview(res.data.user.profile_photo ?? null);
+          setPhotoPreview(updatedUserObj.profile_photo ?? null);
           profileUpdated = true;
         } else {
           showToast('error', res.message || 'Gagal memperbarui profil.');

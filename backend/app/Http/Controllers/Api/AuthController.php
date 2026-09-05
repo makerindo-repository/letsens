@@ -95,12 +95,31 @@ class AuthController extends Controller
             'profile_photo' => 'nullable|string',
         ]);
 
-        $user->name = $validated['name'];
-        if (array_key_exists('profile_photo', $validated)) {
-            $user->profile_photo = $validated['profile_photo'];
+        $user->name = trim($validated['name']);
+
+        // Check if profile_photo key was sent in payload (including null or empty string)
+        if ($request->hasAny(['profile_photo']) || array_key_exists('profile_photo', $request->all()) || $request->has('profile_photo')) {
+            $photoVal = $request->input('profile_photo');
+            $user->profile_photo = ($photoVal && $photoVal !== 'DELETE') ? $photoVal : null;
         }
 
         $user->save();
+
+        // Also sync Staff record if exists for this user email
+        try {
+            \App\Models\Staff::where('email', $user->email)->update([
+                'name' => $user->name,
+            ]);
+        } catch (\Throwable $e) {}
+
+        $userData = [
+            'id' => (string) $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'role' => $user->role ?? 'Super Admin',
+            'profile_photo' => $user->profile_photo,
+            'institution' => 'Universitas Komputer Indonesia',
+        ];
 
         try {
             ActivityLog::create([
@@ -118,14 +137,10 @@ class AuthController extends Controller
             'success' => true,
             'status' => 'success',
             'message' => 'Informasi profil berhasil diperbarui!',
-            'user' => [
-                'id' => (string) $user->id,
-                'name' => $user->name,
-                'email' => $user->email,
-                'role' => $user->role ?? 'Super Admin',
-                'profile_photo' => $user->profile_photo ?? null,
-                'institution' => 'Universitas Komputer Indonesia',
-            ]
+            'data' => [
+                'user' => $userData,
+            ],
+            'user' => $userData,
         ], 200);
     }
 
