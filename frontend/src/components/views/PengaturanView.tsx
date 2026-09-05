@@ -1014,6 +1014,10 @@ if __name__ == "__main__":
                     <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-indigo-50 text-indigo-700 border border-indigo-200/80">
                       Super Admin Only
                     </span>
+                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center gap-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                      Server Container Daemon Aktif
+                    </span>
                   </div>
                   <p className="text-xs font-semibold text-slate-500 mt-0.5">
                     Simulasi payload JSON telemetri sensor 100% identik dengan hardware ESP32 ke broker MQTT & REST Ingestion API
