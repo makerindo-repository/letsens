@@ -88,8 +88,8 @@ jobs:
             git pull origin main
             echo "🐳 Building and updating Docker Compose containers..."
             docker compose up -d --build --remove-orphans
-            echo "🔄 Reloading Nginx proxy to update internal container IPs..."
-            docker compose exec -T nginx nginx -s reload || docker compose restart nginx
+            echo "🔄 Restarting Nginx container to flush internal DNS cache..."
+            docker compose restart nginx
             echo "🧹 Cleaning unused Docker build cache..."
             docker image prune -f
             echo "✅ LetSens Production VPS Deployment Complete!"

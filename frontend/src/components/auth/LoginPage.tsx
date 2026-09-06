@@ -92,7 +92,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
             animate={{ opacity: 1, y: 0 }}
             className="flex items-center gap-3 bg-slate-900/90 backdrop-blur-xl px-4 py-2.5 rounded-2xl border border-slate-700/60 shadow-xl"
           >
-            <img src="/logo-unikom.png" alt="UNIKOM Logo" className="h-8 w-auto object-contain" />
+            <img src="/logo-unikom-new.png" alt="UNIKOM Logo" className="h-8 w-auto object-contain" />
             <div className="h-5 w-px bg-slate-700/80" />
             <span className="text-white font-extrabold text-xs tracking-wider uppercase">
               UNIVERSITAS KOMPUTER INDONESIA
