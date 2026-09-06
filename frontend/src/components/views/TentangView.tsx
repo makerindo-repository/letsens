@@ -119,7 +119,7 @@ export const TentangView: React.FC = () => {
             <p className="text-xs text-slate-500 font-semibold mt-0.5">Universitas Komputer Indonesia</p>
           </div>
           <div className="flex items-center justify-center p-3 px-6 rounded-2xl bg-white border border-slate-200/80 shadow-xs hover:border-blue-300 transition-all hover:scale-105">
-            <img src="/logo-unikom-new.png" alt="UNIKOM" className="h-12 w-auto object-contain" width={48} height={48} />
+            <img src="/logo-unikom-2.png" alt="UNIKOM" className="h-12 w-auto object-contain" width={48} height={48} />
           </div>
         </div>
       </section>
