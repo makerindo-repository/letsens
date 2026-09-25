@@ -81,6 +81,8 @@ jobs:
           username: ${{ secrets.VPS_USERNAME }}
           password: ${{ secrets.VPS_PASSWORD }}
           port: 22
+          timeout: 60s
+          command_timeout: 30m
           script_stop: true
           script: |
             cd /home/maker/letsens

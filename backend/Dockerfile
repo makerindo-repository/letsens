@@ -35,11 +35,16 @@ WORKDIR /var/www/backend
 # Copy application code
 COPY . .
 
+# Prepare directories and clean old cached manifests before composer install
+RUN chmod -R 777 /var/www/backend/bootstrap/cache /var/www/backend/storage && \
+    rm -f /var/www/backend/bootstrap/cache/*.php
+
 # Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader --no-interaction
 
 # Set permissions for storage & cache
-RUN chown -R www-data:www-data /var/www/backend/storage /var/www/backend/bootstrap/cache
+RUN chown -R www-data:www-data /var/www/backend/storage /var/www/backend/bootstrap/cache && \
+    chmod -R 775 /var/www/backend/storage /var/www/backend/bootstrap/cache
 
 EXPOSE 9000
 
